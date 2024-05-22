@@ -26,11 +26,11 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
 
-    # - uses: actions/upload-artifact@master
-    #   with:
-    #     name: allure-results
-    #     path: allure-results
-    #     retention-days: 20
+    - uses: actions/upload-artifact@master
+      with:
+        name: allure-results
+        path: allure-results
+        retention-days: 20
           
     - name: Load test report history
       uses: actions/checkout@v4
@@ -50,10 +50,10 @@ jobs:
         allure_history: allure-history
         keep_reports: 20
 
-    # - name: Publish test report
-    #   uses: peaceiris/actions-gh-pages@v4
-    #   if: always()
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     publish_branch: gh-pages
-    #     publish_dir: allure-history
+    - name: Publish test report
+      uses: peaceiris/actions-gh-pages@v4
+      if: always()
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: allure-history
