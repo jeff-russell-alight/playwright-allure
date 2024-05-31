@@ -2,6 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import { testPlanFilter } from "allure-playwright/dist/testplan";
 import path from 'path';
 import * as fs from 'fs';
+import { CurrentsConfig, currentsReporter } from "@currents/playwright";
 
 /**
  * Read environment variables from file.
@@ -9,6 +10,12 @@ import * as fs from 'fs';
  */
 require('dotenv').config();
 export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/storageState.json');
+
+const currentsConfig: CurrentsConfig = {
+  ciBuildId: process.env.CURRENTS_CI_BUILD_ID, // 📖 https://currents.dev/readme/guides/ci-build-id
+  recordKey: process.env.CURRENTS_RECORD_KEY, // 📖 https://currents.dev/readme/guides/record-key
+  projectId: process.env.CURRENTS_PROJECT_ID, // get one at https://app.currents.dev
+};
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -27,15 +34,15 @@ export default defineConfig({
   grep: testPlanFilter(),
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI ? [["allure-playwright"]] : [['line'], ["allure-playwright"]],
+  reporter: process.env.CI ? [currentsReporter(currentsConfig)] : [['line'], ["allure-playwright"]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://localhost:4200/',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
-    video: 'on-first-retry'
+    trace: "on",
+    video: "on",
+    screenshot: "on",
   },
 
   /* Configure projects for major browsers */
