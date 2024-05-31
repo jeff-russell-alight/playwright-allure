@@ -12,7 +12,7 @@ require('dotenv').config();
 export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/storageState.json');
 
 const currentsConfig: CurrentsConfig = {
-  ciBuildId: process.env.CURRENTS_CI_BUILD_ID, // 📖 https://currents.dev/readme/guides/ci-build-id
+  ciBuildId: process.env.RUN_ID + process.env.RUN_ATTEMPT, // 📖 https://currents.dev/readme/guides/ci-build-id
   recordKey: process.env.CURRENTS_RECORD_KEY, // 📖 https://currents.dev/readme/guides/record-key
   projectId: process.env.CURRENTS_PROJECT_ID, // get one at https://app.currents.dev
 };
