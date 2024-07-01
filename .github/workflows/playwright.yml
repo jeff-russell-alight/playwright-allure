@@ -60,4 +60,4 @@ jobs:
     - name: Post the link to the report
       env:
         RUN_NUMBER: ${{ github.run_number }}
-      run: echo "The selected color is https://jeff-russell-alight.github.io/playwright-allure/$RUN_NUMBER"
+      run: echo "Find the report here - https://jeff-russell-alight.github.io/playwright-allure/$RUN_NUMBER"
