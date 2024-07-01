@@ -65,4 +65,5 @@ jobs:
           context: 'Test report'
           state: 'success'
           sha: ${{ github.event.pull_request.head.sha }}
+          owner: ${{ github.repository_owner }}
           target_url: jeff-russell-alight.github.io/playwright-allure/${{ github.run_number }}
